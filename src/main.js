@@ -62,11 +62,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
         currentElement.previousElementSibling.style.display = "none";
         storedTodos.forEach((todo, index, array) => {
           if (todo.id == todoId) {
-            const editedTodo = {
-              todoText: editedTodoText,
-              timeStamp: todo.id,
-              isChecked: false,
-            };
+            const editedTodo = {...todo, todoText: editedTodoText};
             array[index] = editedTodo;
           }
         });
@@ -144,6 +140,10 @@ document.addEventListener("DOMContentLoaded", (e) => {
   document.getElementById("saveBtn").addEventListener("click", (e) => {
     e.preventDefault();
     const todoText = document.getElementById("todo-input").value;
+    if(todoText===""){
+      showAlert("Please enter something.", "warning");
+      return;
+    }
     const timeStamp = Date.now();
     const newTodo = { todoText: todoText, id: timeStamp, isChecked: false };
     addNewTodo(newTodo);
