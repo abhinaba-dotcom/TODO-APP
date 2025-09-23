@@ -134,6 +134,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
     storedTodos.push(todo);
     localStorage.setItem("todos", JSON.stringify(storedTodos));
     showAlert("Todo successfully added to the database.", "success");
+    document.getElementById("todo-input").value = "";
     fetchAllTodos();
   }
 
