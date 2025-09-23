@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", (e) => {
   e.preventDefault();
+  // Function to show alert with a 'msg' and 'alert-type'
   function showAlert(msg, type) {
     let alertDiv = document.createElement("div");
     alertDiv.innerText = msg;
@@ -7,20 +8,21 @@ document.addEventListener("DOMContentLoaded", (e) => {
     if (type === "success") {
       alertDiv.style.background = "green";
       capitalizeTypeText = type.charAt(0).toUpperCase() + type.slice(1);
-    alertDiv.innerText = capitalizeTypeText + ": " + msg;
+      alertDiv.innerText = capitalizeTypeText + ": " + msg;
     } else if (type === "warning") {
       alertDiv.style.background = "#ff9966";
       capitalizeTypeText = type.charAt(0).toUpperCase() + type.slice(1);
-    alertDiv.innerText = capitalizeTypeText + ": " + msg;
+      alertDiv.innerText = capitalizeTypeText + ": " + msg;
     } else if (type === "danger") {
       alertDiv.style.background = "red";
-    alertDiv.innerText = msg;
+      alertDiv.innerText = msg;
     }
-    
+
     alertDiv.classList.add("alert-box");
     alertDiv.style.display = "flex";
     document.getElementsByTagName("body")[0].append(alertDiv);
   }
+  // Code to mark a todo
   function markTodo(currentElement, todoId) {
     if (localStorage.getItem("todos")) {
       const storedTodos = JSON.parse(localStorage.getItem("todos"));
@@ -45,6 +47,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
       }, 1000);
     }
   }
+  // Code to edit a todo
   function editTodo(currentElement, todoId) {
     if (localStorage.getItem("todos")) {
       const storedTodos = JSON.parse(localStorage.getItem("todos"));
@@ -62,12 +65,12 @@ document.addEventListener("DOMContentLoaded", (e) => {
         currentElement.previousElementSibling.style.display = "none";
         storedTodos.forEach((todo, index, array) => {
           if (todo.id == todoId) {
-            const editedTodo = {...todo, todoText: editedTodoText};
+            const editedTodo = { ...todo, todoText: editedTodoText };
             array[index] = editedTodo;
           }
         });
         localStorage.setItem("todos", JSON.stringify(storedTodos));
-            showAlert("Todo edited successfully.", "success");
+        showAlert("Todo edited successfully.", "success");
 
         setTimeout(() => {
           fetchAllTodos();
@@ -75,6 +78,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
       });
     }
   }
+  // Code to delete a todo
   function deleteTodo(todoId) {
     if (localStorage.getItem("todos")) {
       const storedTodos = JSON.parse(localStorage.getItem("todos"));
@@ -82,7 +86,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
         (item) => item.id != todoId
       );
       localStorage.setItem("todos", JSON.stringify(filteredTodosAfterDeletion));
-                  showAlert("Todo deleted successfully.", "danger");
+      showAlert("Todo deleted successfully.", "danger");
 
       fetchAllTodos();
     }
@@ -91,6 +95,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
   window.myGlobalDeleteTodo = deleteTodo;
   window.myGlobalMarkTodo = markTodo;
   fetchAllTodos();
+  // Fetching all todo
   function fetchAllTodos() {
     let allTodo = [];
     if (!localStorage.getItem("todos")) {
@@ -125,7 +130,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
       });
     }
   }
-
+  // Code to add new todo
   function addNewTodo(todo) {
     if (!localStorage.getItem("todos")) {
       localStorage.setItem("todos", JSON.stringify([]));
@@ -137,11 +142,11 @@ document.addEventListener("DOMContentLoaded", (e) => {
     document.getElementById("todo-input").value = "";
     fetchAllTodos();
   }
-
+  // Event listener for save todo button
   document.getElementById("saveBtn").addEventListener("click", (e) => {
     e.preventDefault();
     const todoText = document.getElementById("todo-input").value;
-    if(todoText===""){
+    if (todoText === "") {
       showAlert("Please enter something.", "warning");
       return;
     }
