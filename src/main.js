@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
       const storedTodos = JSON.parse(localStorage.getItem("todos"));
       if (currentElement.checked) {
         //The code for to mark check is here
+        // currentElement.nextElementSibling.style.textDecoration = "line-through";
         storedTodos.forEach((todo, index, array) => {
           if (todo.id == todoId) {
             const checkedTodo = { ...todo, isChecked: true };
@@ -88,10 +89,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
               <input class="check-button" onchange="myGlobalMarkTodo(this, ${
                 todo.id
               })"  type="checkbox" ${todo.isChecked ? "checked" : ""} />
-              <div class="parent">
-              <p class="todo-text">${todo.todoText}</p>
-              <div class="strike-through-line"></div>
-              </div>
+              <p style="text-decoration: ${todo.isChecked? "line-through": "none"}" class="todo-text">${todo.todoText}</p>
             </div>
             <div class="todo-container__button-box">
               <img class="saveBtn" width="25px" height="25px" src="./src/assets/save.svg" alt="">

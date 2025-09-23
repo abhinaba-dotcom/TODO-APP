@@ -64,41 +64,9 @@ body {
       }
     }
   }
-  .saveBtn {
-    display: none;
-  }
-  .strike-through-line {
-    position: absolute;
-    top: 50%; /* Center vertically */
-    left: 0;
-    width: 0; /* Initially hidden */
-    height: 2px; /* Thickness of the line */
-    background-color: red; /* Color of the line */
-    transform: translateY(-50%); /* Adjust for vertical centering */
-    transition: width 0.5s ease-out; /* Smooth animation for width */
-  }
-  .todo-item.checked .strike-through-line {
-  width: 100%; /* Expands the line across the div */
 }
-  .hover-underline-animation {
-    display: none;
-    width: 100%;
-    height: 2px;
-    background-color: black;
-    border-radius: 2px;
-    position: relative;
-    bottom: 10px;
-  }
-  // .hover-underline-animation {
-  //   display: block;
-  //   animation: underline-animation-left-to-right 2s ease-in-out 0 0 forwards;
-  // }
-  @keyframes underline-animation-left-to-right {
-    0% {
-      width: 0;
-    }
-    100% {
-      width: 100%;
-    }
-  }
+.saveBtn {
+  display: none;
 }
+
+
