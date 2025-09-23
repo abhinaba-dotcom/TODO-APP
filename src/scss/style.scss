@@ -4,11 +4,12 @@
   box-sizing: border-box;
 }
 body {
+  position: absolute;
   width: 100vw;
   height: 100vh;
   display: flex;
   align-items: center;
-  padding-top: 56px;
+  padding-top: 70px;
   flex-direction: column;
   gap: 12px;
   .input-box {
@@ -64,9 +65,33 @@ body {
       }
     }
   }
+  .saveBtn {
+    display: none;
+  }
+  .alert-box {
+    display: none;
+    position: fixed;
+    // background-color: #1fa91f;
+    padding: 12px 20px;
+    border-radius: 4px;
+    color: white;
+    animation: animate-alert-box 3s ease-in-out  forwards;
+  }
 }
-.saveBtn {
-  display: none;
+@keyframes animate-alert-box {
+  0% {
+    top: -50px;
+  }
+  50%{
+    top: 10px;
+  }
+  70%{
+top: 10px;
+  }
+  75%{
+    top: 10px;
+  }
+  100% {
+    top: -50px;
+  }
 }
-
-

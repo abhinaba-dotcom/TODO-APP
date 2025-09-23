@@ -1,12 +1,30 @@
 document.addEventListener("DOMContentLoaded", (e) => {
   e.preventDefault();
-  
+  function showAlert(msg, type) {
+    let alertDiv = document.createElement("div");
+    alertDiv.innerText = msg;
+    let capitalizeTypeText;
+    if (type === "success") {
+      alertDiv.style.background = "green";
+      capitalizeTypeText = type.charAt(0).toUpperCase() + type.slice(1);
+    alertDiv.innerText = capitalizeTypeText + ": " + msg;
+    } else if (type === "warning") {
+      alertDiv.style.background = "#ff9966";
+      capitalizeTypeText = type.charAt(0).toUpperCase() + type.slice(1);
+    alertDiv.innerText = capitalizeTypeText + ": " + msg;
+    } else if (type === "danger") {
+      alertDiv.style.background = "red";
+    alertDiv.innerText = msg;
+    }
+    
+    alertDiv.classList.add("alert-box");
+    alertDiv.style.display = "flex";
+    document.getElementsByTagName("body")[0].append(alertDiv);
+  }
   function markTodo(currentElement, todoId) {
     if (localStorage.getItem("todos")) {
       const storedTodos = JSON.parse(localStorage.getItem("todos"));
       if (currentElement.checked) {
-        //The code for to mark check is here
-        // currentElement.nextElementSibling.style.textDecoration = "line-through";
         storedTodos.forEach((todo, index, array) => {
           if (todo.id == todoId) {
             const checkedTodo = { ...todo, isChecked: true };
@@ -53,6 +71,8 @@ document.addEventListener("DOMContentLoaded", (e) => {
           }
         });
         localStorage.setItem("todos", JSON.stringify(storedTodos));
+            showAlert("Todo edited successfully.", "success");
+
         setTimeout(() => {
           fetchAllTodos();
         }, 1000);
@@ -66,6 +86,8 @@ document.addEventListener("DOMContentLoaded", (e) => {
         (item) => item.id != todoId
       );
       localStorage.setItem("todos", JSON.stringify(filteredTodosAfterDeletion));
+                  showAlert("Todo deleted successfully.", "danger");
+
       fetchAllTodos();
     }
   }
@@ -89,7 +111,9 @@ document.addEventListener("DOMContentLoaded", (e) => {
               <input class="check-button" onchange="myGlobalMarkTodo(this, ${
                 todo.id
               })"  type="checkbox" ${todo.isChecked ? "checked" : ""} />
-              <p style="text-decoration: ${todo.isChecked? "line-through": "none"}" class="todo-text">${todo.todoText}</p>
+              <p style="text-decoration: ${
+                todo.isChecked ? "line-through" : "none"
+              }" class="todo-text">${todo.todoText}</p>
             </div>
             <div class="todo-container__button-box">
               <img class="saveBtn" width="25px" height="25px" src="./src/assets/save.svg" alt="">
@@ -113,6 +137,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
     const storedTodos = JSON.parse(localStorage.getItem("todos"));
     storedTodos.push(todo);
     localStorage.setItem("todos", JSON.stringify(storedTodos));
+    showAlert("Todo successfully added to the database.", "success");
     fetchAllTodos();
   }
 
