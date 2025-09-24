@@ -12,21 +12,30 @@
     />
   </head>
   <body class="body">
-    
     <h1>TODO APP</h1>
 
     <div class="input-box">
-      <input
-        id="todo-input"
-        class="input-box__input"
-        type="text"
-        placeholder="Enter your todo here"
-      />
-      <button id="saveBtn" class="input-box__save-btn">Save</button>
+      <div class="input-box-left">
+        <label for="tags"></label>
+        <select id="tags">
+          <option value="general">General</option>
+          <option value="personal">Personal</option>
+          <option value="official">Official</option>
+          <option value="education">Education</option>
+        </select>
+      </div>
+      <div class="input-box-right">
+        <input
+          id="todo-input"
+          class="input-box__input"
+          type="text"
+          placeholder="Enter your todo here"
+        />
+        <button id="saveBtn" class="input-box__save-btn">Save</button>
+        
+      </div>
     </div>
-    <div id="todo-container" class="todo-container">
-
-    </div>
+    <div id="todo-container" class="todo-container"></div>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>

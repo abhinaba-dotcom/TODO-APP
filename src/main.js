@@ -1,5 +1,9 @@
 document.addEventListener("DOMContentLoaded", (e) => {
   e.preventDefault();
+  function capitalizeFirstLetter(text){
+    let capitalizeTypeText = text.charAt(0).toUpperCase() + text.slice(1);
+    return capitalizeTypeText;
+  }
   // Function to show alert with a 'msg' and 'alert-type'
   function showAlert(msg, type) {
     let alertDiv = document.createElement("div");
@@ -17,7 +21,6 @@ document.addEventListener("DOMContentLoaded", (e) => {
       alertDiv.style.background = "red";
       alertDiv.innerText = msg;
     }
-
     alertDiv.classList.add("alert-box");
     alertDiv.style.display = "flex";
     document.getElementsByTagName("body")[0].append(alertDiv);
@@ -107,7 +110,8 @@ document.addEventListener("DOMContentLoaded", (e) => {
     if (allTodo) {
       allTodo.forEach((todo) => {
         let newTodoDiv = document.createElement("div");
-        newTodoDiv.innerHTML = `<div id=${todo.id} class="todo-item">
+        newTodoDiv.innerHTML = `<div class="todo-item-parent-container">
+        <div id=${todo.id} class="todo-item">
             <div class="todo-item__todo-box">
               <input class="check-button" onchange="myGlobalMarkTodo(this, ${
                 todo.id
@@ -125,7 +129,10 @@ document.addEventListener("DOMContentLoaded", (e) => {
                 todo.id
               }')" width="25px" height="25px" src="./src/assets/delete.svg" alt="">
             </div>
+          </div>
+          <p class="todo-item__tag">${capitalizeFirstLetter(todo.tag)}</p>
           </div>`;
+          console.log(newTodoDiv)
         todoContainer.append(newTodoDiv);
       });
     }
@@ -151,7 +158,13 @@ document.addEventListener("DOMContentLoaded", (e) => {
       return;
     }
     const timeStamp = Date.now();
-    const newTodo = { todoText: todoText, id: timeStamp, isChecked: false };
+    const tagValue = document.getElementById("tags").value;
+    const newTodo = {
+      todoText: todoText,
+      id: timeStamp,
+      tag: tagValue,
+      isChecked: false,
+    };
     addNewTodo(newTodo);
   });
 });

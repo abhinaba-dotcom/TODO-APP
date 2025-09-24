@@ -14,6 +14,19 @@ body {
   gap: 15px;
   .input-box {
     display: flex;
+    align-items: center;
+    gap: 12px;
+    .input-box-left {
+      select {
+        padding: 9px 25px 9px 12px;
+        border-radius: 4px;
+        outline: none;
+        border: 0.5px solid rgb(60, 159, 246);
+      }
+    }
+    .input-box-right {
+      display: flex;
+    }
     .input-box__input {
       padding: 10px 25px 10px 12px;
       width: 450px;
@@ -38,35 +51,49 @@ body {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    .todo-item {
-      position: relative;
+    .todo-item-parent-container {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 12px;
-      min-width: 450px;
-      border-radius: 4px;
-      outline: none;
-      border: 0.5px solid rgb(60, 159, 246);
-      background-color: rgb(250, 247, 247);
-      gap: 4px;
-      .todo-item__todo-box {
+      flex-direction: column;
+      .todo-item {
+        position: relative;
         display: flex;
         align-items: center;
-        gap: 12px;
-      }
-      .todo-container__button-box {
-        display: flex;
-        gap: 8px;
-        align-items: center;
-        img {
-          cursor: pointer;
+        justify-content: space-between;
+        padding: 10px 12px;
+        min-width: 450px;
+        border-radius: 4px;
+        border-bottom-left-radius: 0;
+        outline: none;
+        border: 0.5px solid rgb(60, 159, 246);
+        background-color: rgb(250, 247, 247);
+        gap: 4px;
+        .todo-item__todo-box {
+          display: flex;
+          align-items: center;
+          gap: 12px;
         }
+        .todo-container__button-box {
+          display: flex;
+          gap: 8px;
+          align-items: center;
+          img {
+            cursor: pointer;
+          }
+        }
+      }
+      .todo-item__tag{
+        background-color: blue;
+        padding: 4px 8px;
+        width: fit-content;
+        color: white;
+        border-bottom-right-radius: 4px;
+        border-bottom-left-radius: 4px;
+        font-size: 14px;
       }
     }
   }
   .saveBtn {
-    display: none; 
+    display: none;
   }
   .alert-box {
     display: none;
@@ -102,8 +129,8 @@ body {
         width: 245px;
       }
     }
-    .todo-container{
-      .todo-item{
+    .todo-container {
+      .todo-item {
         min-width: 300px;
         max-width: 300px;
       }
