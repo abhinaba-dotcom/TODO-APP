@@ -11,7 +11,25 @@ body {
   align-items: center;
   padding-top: 80px;
   flex-direction: column;
+  background-image: url('../../src/assets/bg-image.jpg');
+  background-position: top left; /* Position left image to the left, right image to the right */
+  background-repeat: no-repeat; /* Prevent images from repeating */
+  background-size: cover;
   gap: 15px;
+  .container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-left: 250px;
+    margin-top: 60px;
+    gap: 25px;
+    h1{
+      color: #535251;
+      width: 80%;
+      text-align: center;
+    }
+  }
   .input-box {
     display: flex;
     align-items: center;
@@ -35,15 +53,16 @@ body {
       border: 0.5px solid rgb(60, 159, 246);
     }
     button:hover {
-      background-color: rgb(18, 18, 189);
+      background-color: #e1ab75;
       cursor: pointer;
     }
     .input-box__save-btn {
-      padding: 10px 12px;
+      padding: 10px 24px;
       color: white;
       border-radius: 0 4px 4px 0;
       border: none;
-      background-color: blue;
+      background-color: #e6a462;
+      font-size: 18px;
     }
   }
   .todo-container {
@@ -71,6 +90,9 @@ body {
           display: flex;
           align-items: center;
           gap: 12px;
+          .check-button{
+            border-radius: 100%;
+          }
         }
         .todo-container__button-box {
           display: flex;
@@ -82,7 +104,7 @@ body {
         }
       }
       .todo-item__tag{
-        background-color: blue;
+        background-color: #e6a462;
         padding: 4px 8px;
         width: fit-content;
         color: white;
