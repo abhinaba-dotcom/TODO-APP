@@ -60,6 +60,8 @@ document.addEventListener("DOMContentLoaded", (e) => {
       todoTextPara.contentEditable = true;
       todoTextPara.style.outline = "none";
       todoTextPara.style.outline = "none";
+      todoTextPara.style.background = "gray"
+      todoTextPara.style.padding="2px 4px"
       todoTextPara.focus();
       currentElement.style.display = "none";
       currentElement.previousElementSibling.style.display = "flex";
@@ -128,6 +130,8 @@ document.addEventListener("DOMContentLoaded", (e) => {
 
   // Initial load of todos
   const filters = document.getElementById("filters");
+  console.log(filters);
+  console.log()
   fetchAllTodos(findFilteredTodos(filters.value));
 
   // Event listener to check the change in the filter select
@@ -154,13 +158,13 @@ document.addEventListener("DOMContentLoaded", (e) => {
               }" class="todo-text">${todo.todoText}</p>
             </div>
             <div class="todo-container__button-box">
-              <img class="saveBtn" width="25px" height="25px" src="./src/assets/save.svg" alt="">
+              <img class="saveBtn" width="25px" height="25px" src="./src/assets/save-mat.svg" alt="">
               <img class="editBtn" onclick="myGlobalEditTodo(this,'${
                 todo.id
-              }')" width="25px" height="25px" src="./src/assets/edit.svg" alt="">
+              }')" width="25px" height="25px" src="./src/assets/edit-mat.svg" alt="">
               <img class="deleteBtn"  onclick="myGlobalDeleteTodo('${
                 todo.id
-              }')" width="25px" height="25px" src="./src/assets/delete.svg" alt="">
+              }')" width="25px" height="25px" src="./src/assets/delete-mat.svg" alt="">
             </div>
           </div>
           <p class="todo-item__tag">${capitalizeFirstLetter(todo.tag)}</p>

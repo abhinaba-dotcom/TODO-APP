@@ -4,37 +4,24 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
-    <link rel="stylesheet" href="./src/scss/style.scss" />
+    <title>Todo App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      href="https://fonts.googleapis.com/css2?family=Alan+Sans:wght@300..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
+    <link rel="stylesheet" href="./src/scss/style.scss" />
   </head>
-  <body class="body">
+  <body>
+    <!-- create a container for the todo list -->
     <div class="container">
-      <h1>Save your todos here and access from anywhere.</h1>
-
-      <div class="input-box">
-        <div class="input-box-left">
-          <label for="tags"></label>
-          <select id="tags">
-            <option value="general">General</option>
-            <option value="personal">Personal</option>
-            <option value="official">Official</option>
-            <option value="education">Education</option>
-          </select>
-        </div>
-        <div class="input-box-right">
-          <input
-            id="todo-input"
-            class="input-box__input"
-            type="text"
-            placeholder="Enter your todo here"
-          />
-          <button id="saveBtn" class="input-box__save-btn">Save</button>
-        </div>
+      <!-- todo list header -->
+      <div id="header" class="header">
+        <!-- <h1>To Do List</h1> -->
       </div>
+      <!-- task list -->
+      <!-- <h2>Task List</h2> -->
       <div id="todo-container-parent" class="todo-container-parent">
         <select class="filters" id="filters">
           <option value="all">All</option>
@@ -46,7 +33,28 @@
         </select>
         <div id="todo-container" class="todo-container"></div>
       </div>
+      <!-- create input box -->
+      <div class="todo-form">
+        <div class="input-box-left">
+          <label for="tags"></label>
+          <select id="tags" class="tags">
+            <option value="general">General</option>
+            <option value="personal">Personal</option>
+            <option value="official">Official</option>
+            <option value="education">Education</option>
+          </select>
+        </div>
+        <input
+          type="text"
+          class="input-item"
+          name="input_box"
+          id="todo-input"
+          placeholder="Add Task"
+        />
+        <!-- add button  -->
+        <button id="saveBtn" class="input-box__save-btn"><img width="25px" height="25px" src="./src/assets/add.svg" alt="image"></button>
+      </div>
     </div>
-    <script type="module" src="/src/main.js"></script>
+    <script src="./src/main.js"></script>
   </body>
 </html>

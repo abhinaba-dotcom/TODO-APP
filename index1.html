@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+    <link rel="stylesheet" href="./src/scss/style.scss" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+  </head>
+  <body class="body">
+    <div class="container">
+      <h1>Save your todos here and access from anywhere.</h1>
+
+      <div class="input-box">
+        <div class="input-box-left">
+          <label for="tags"></label>
+          <select id="tags">
+            <option value="general">General</option>
+            <option value="personal">Personal</option>
+            <option value="official">Official</option>
+            <option value="education">Education</option>
+          </select>
+        </div>
+        <div class="input-box-right">
+          <input
+            id="todo-input"
+            class="input-box__input"
+            type="text"
+            placeholder="Enter your todo here"
+          />
+          <button id="saveBtn" class="input-box__save-btn">Save</button>
+        </div>
+      </div>
+      <div id="todo-container-parent" class="todo-container-parent">
+        <select class="filters" id="filters">
+          <option value="all">All</option>
+          <option value="completed">Completed</option>
+          <option value="general">General</option>
+          <option value="personal">Personal</option>
+          <option value="official">Official</option>
+          <option value="education">Education</option>
+        </select>
+        <div id="todo-container" class="todo-container"></div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

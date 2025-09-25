@@ -1,139 +1,161 @@
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
 body {
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
+  background-color: #1B3C53;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin-top: 50px;
+  color: #D2C1B6;
+}
+.container {
+  // background: rgb(41, 33, 33);
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  background-color: #456882;
+  width: fit-content;
+  margin: auto auto;
+  // border: 2px solid #0033ff;
+  padding: 20px 30px;
+  
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #0f202c;
+}
+.header {
+  margin: 5px;
+  font-size: 20px;
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+select {
+  outline: none;
+  background-color: #234C6A;
+  border: none;
+  color: white;
+}
+.todo-form {
   display: flex;
   align-items: center;
-  padding-top: 80px;
+  gap: 6px;
+}
+.todo-form select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+.input-item {
+  width: 200px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 20px;
+  outline: none;
+}
+.input-box__save-btn {
+  font-size: 20px;
+  cursor: pointer;
+  transition: 0.4s;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #2e60ea;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.input-box__save-btn:hover {
+  background-color: #9eb7fd;
+}
+.todo-container {
+  padding: 0;
+  margin-top: 20px;
+  text-align: left;
+}
+.filters {
+  padding: 8px;
+  border-radius: 5px;
+  font-size: 16px;
+
+}
+.todo-item-parent-container {
+  background-color: transparent;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  display: flex;
   flex-direction: column;
-  background-image: url('../../src/assets/bg-image.jpg');
-  background-position: top left; /* Position left image to the left, right image to the right */
-  background-repeat: no-repeat; /* Prevent images from repeating */
-  background-size: cover;
-  gap: 15px;
-  .container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin-left: 250px;
-    margin-top: 60px;
-    gap: 25px;
-    h1{
-      color: #535251;
-      width: 80%;
-      text-align: center;
-    }
-  }
-  .input-box {
+  .todo-item {
+    border: 1px solid #D2C1B6;
+    border-radius: 5px;
+    position: relative;
     display: flex;
     align-items: center;
-    gap: 12px;
-    .input-box-left {
-      select {
-        padding: 9px 25px 9px 12px;
-        border-radius: 4px;
-        outline: none;
-        border: 0.5px solid rgb(60, 159, 246);
-      }
-    }
-    .input-box-right {
-      display: flex;
-    }
-    .input-box__input {
-      padding: 10px 25px 10px 12px;
-      width: 450px;
-      border-radius: 4px 0px 0px 4px;
-      outline: none;
-      border: 0.5px solid rgb(60, 159, 246);
-    }
-    button:hover {
-      background-color: #e1ab75;
-      cursor: pointer;
-    }
-    .input-box__save-btn {
-      padding: 10px 24px;
-      color: white;
-      border-radius: 0 4px 4px 0;
-      border: none;
-      background-color: #e6a462;
-      font-size: 18px;
-    }
-  }
-  .todo-container-parent{
-    select {
-        padding: 9px 25px 9px 12px;
-        border-radius: 4px;
-        outline: none;
-        border: 0.5px solid rgb(60, 159, 246);
-      }
-  }
-  .todo-container {
-    padding-top: 15px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    .todo-item-parent-container {
-      display: flex;
-      flex-direction: column;
-      .todo-item {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 10px 12px;
-        min-width: 450px;
-        border-radius: 4px;
-        border-bottom-left-radius: 0;
-        outline: none;
-        border: 0.5px solid rgb(60, 159, 246);
-        background-color: rgb(250, 247, 247);
-        gap: 4px;
-        .todo-item__todo-box {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          .check-button{
-            border-radius: 100%;
-          }
-        }
-        .todo-container__button-box {
-          display: flex;
-          gap: 8px;
-          align-items: center;
-          img {
-            cursor: pointer;
-          }
-        }
-      }
-      .todo-item__tag{
-        background-color: #e6a462;
-        padding: 4px 8px;
-        width: fit-content;
-        color: white;
-        border-bottom-right-radius: 4px;
-        border-bottom-left-radius: 4px;
-        font-size: 14px;
-      }
-    }
-  }
-  .saveBtn {
-    display: none;
-  }
-  .alert-box {
-    display: none;
-    position: fixed;
-    // background-color: #1fa91f;
-    padding: 12px 20px;
+    justify-content: space-between;
+    background-color: transparent;
+    padding: 10px 12px;
+    min-width: 450px;
     border-radius: 4px;
-    color: white;
-    animation: animate-alert-box 3s ease-in-out forwards;
+    border-bottom-left-radius: 0;
+    outline: none;
+    gap: 4px;
+    .todo-item__todo-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      .check-button {
+        width: 20px;
+        height: 20px;
+      }
+      .todo-text {
+        font-size: 16px;
+      }
+    }
+    .todo-container__button-box {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      img {
+        cursor: pointer;
+      }
+    }
   }
+  .todo-item__tag {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 0;
+    background-color: #234C6A;
+    padding: 4px 8px;
+    width: fit-content;
+    color: white;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    font-size: 14px;
+  }
+}
+.todo-form{
+  .tags{
+    display: flex;
+  }
+  .input-item{
+    display: flex;
+  }
+}
+.saveBtn {
+  display: none;
+}
+.alert-box {
+  display: none;
+  position: fixed;
+  // background-color: #1fa91f;
+  padding: 12px 20px;
+  border-radius: 4px;
+  color: white;
+  animation: animate-alert-box 3s ease-in-out forwards;
 }
 @keyframes animate-alert-box {
   0% {
@@ -150,20 +172,5 @@ body {
   }
   100% {
     top: -50px;
-  }
-}
-@media screen and (max-width: 425px) {
-  body {
-    .input-box {
-      .input-box__input {
-        width: 245px;
-      }
-    }
-    .todo-container {
-      .todo-item {
-        min-width: 300px;
-        max-width: 300px;
-      }
-    }
   }
 }
