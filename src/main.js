@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", (e) => {
   e.preventDefault();
-  function capitalizeFirstLetter(text){
+  // Event listener for the filters
+  function capitalizeFirstLetter(text) {
     let capitalizeTypeText = text.charAt(0).toUpperCase() + text.slice(1);
     return capitalizeTypeText;
   }
@@ -45,8 +46,8 @@ document.addEventListener("DOMContentLoaded", (e) => {
         });
       }
       localStorage.setItem("todos", JSON.stringify(storedTodos));
+      fetchAllTodos(findFilteredTodos(filters.value));
       setTimeout(() => {
-        fetchAllTodos();
       }, 1000);
     }
   }
@@ -76,7 +77,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
         showAlert("Todo edited successfully.", "success");
 
         setTimeout(() => {
-          fetchAllTodos();
+          fetchAllTodos(findFilteredTodos(filters.value));
         }, 1000);
       });
     }
@@ -91,24 +92,56 @@ document.addEventListener("DOMContentLoaded", (e) => {
       localStorage.setItem("todos", JSON.stringify(filteredTodosAfterDeletion));
       showAlert("Todo deleted successfully.", "danger");
 
-      fetchAllTodos();
+      fetchAllTodos(findFilteredTodos(filters.value));
     }
   }
+  
+  // Making the scope of that three function global which are inside the onclick buttons
   window.myGlobalEditTodo = editTodo;
   window.myGlobalDeleteTodo = deleteTodo;
   window.myGlobalMarkTodo = markTodo;
-  fetchAllTodos();
-  // Fetching all todo
-  function fetchAllTodos() {
+
+  // Function to find filtered todos
+  function findFilteredTodos(filter) {
+    const selectedValue = filter;
     let allTodo = [];
     if (!localStorage.getItem("todos")) {
       return;
     }
     allTodo = JSON.parse(localStorage.getItem("todos"));
+    let todosToShow = [];
+    if (selectedValue === "all") {
+      todosToShow = allTodo;
+    } else if (selectedValue === "completed") {
+      todosToShow = allTodo.filter((todo) => todo.isChecked === true);
+    } else if (selectedValue === "general") {
+      todosToShow = allTodo.filter((todo) => todo.tag === "general");
+    } else if (selectedValue === "personal") {
+      todosToShow = allTodo.filter((todo) => todo.tag === "personal");
+    } else if (selectedValue === "official") {
+      todosToShow = allTodo.filter((todo) => todo.tag === "official");
+    } else if (selectedValue === "education") {
+      todosToShow = allTodo.filter((todo) => todo.tag === "education");
+    }
+    return todosToShow;
+  }
+
+  // Initial load of todos
+  const filters = document.getElementById("filters");
+  fetchAllTodos(findFilteredTodos(filters.value));
+
+  // Event listener to check the change in the filter select
+  filters.addEventListener("change", function (event) {
+    const selectedValue = event.target.value;
+    fetchAllTodos(findFilteredTodos(selectedValue));
+  });
+
+  // Fetching all todo
+  function fetchAllTodos(todos) {
     const todoContainer = document.getElementById("todo-container");
     todoContainer.innerHTML = "";
-    if (allTodo) {
-      allTodo.forEach((todo) => {
+    if (todos) {
+      todos.forEach((todo) => {
         let newTodoDiv = document.createElement("div");
         newTodoDiv.innerHTML = `<div class="todo-item-parent-container">
         <div id=${todo.id} class="todo-item">
@@ -132,11 +165,11 @@ document.addEventListener("DOMContentLoaded", (e) => {
           </div>
           <p class="todo-item__tag">${capitalizeFirstLetter(todo.tag)}</p>
           </div>`;
-          console.log(newTodoDiv)
         todoContainer.append(newTodoDiv);
       });
     }
   }
+
   // Code to add new todo
   function addNewTodo(todo) {
     if (!localStorage.getItem("todos")) {
@@ -147,8 +180,9 @@ document.addEventListener("DOMContentLoaded", (e) => {
     localStorage.setItem("todos", JSON.stringify(storedTodos));
     showAlert("Todo successfully added to the database.", "success");
     document.getElementById("todo-input").value = "";
-    fetchAllTodos();
+    fetchAllTodos(findFilteredTodos(filters.value));
   }
+
   // Event listener for save todo button
   document.getElementById("saveBtn").addEventListener("click", (e) => {
     e.preventDefault();
