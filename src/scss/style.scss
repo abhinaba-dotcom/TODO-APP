@@ -1,9 +1,28 @@
+/* For Chrome, Safari, and Opera */
+::-webkit-scrollbar {
+  width: 5px; /* Set the width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #3f84b6; /* Color of the scrollbar track */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888; /* Color of the scrollbar thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Color of the thumb on hover */
+}
+
 body {
   background-color: #1B3C53;
   font-family: Arial, sans-serif;
   text-align: center;
   margin-top: 50px;
   color: #D2C1B6;
+  scrollbar-color: #888 #f1f1f1; /* thumb color track color */
+  scrollbar-width: thin;
 }
 .container {
   // background: rgb(41, 33, 33);
@@ -33,7 +52,7 @@ select {
   outline: none;
   background-color: #234C6A;
   border: none;
-  color: white;
+  color: #D2C1B6;;
 }
 .todo-form {
   display: flex;
@@ -49,27 +68,70 @@ select {
 .input-item {
   width: 200px;
   padding: 10px;
-  border: 1px solid #ccc;
   border-radius: 5px;
-  font-size: 20px;
+  font-size: 16px;
   outline: none;
+  color: #948981;;
+  border: none;
 }
 .input-box__save-btn {
-  font-size: 20px;
+  font-size: 16px;
   cursor: pointer;
   transition: 0.4s;
   padding: 10px;
   border: none;
   border-radius: 5px;
-  background-color: #2e60ea;
-  color: white;
+  background-color: #234C6A;
+  color: #D2C1B6;
   display: flex;
   justify-content: center;
   align-items: center;
+  
+}
+.round {
+  position: relative;
 }
 
+.round label {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  height: 28px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 28px;
+}
+
+.round label:after {
+  border: 2px solid #fff;
+  border-top: none;
+  border-right: none;
+  content: "";
+  height: 6px;
+  left: 7px;
+  opacity: 0;
+  position: absolute;
+  top: 8px;
+  transform: rotate(-45deg);
+  width: 12px;
+}
+
+.round input[type="checkbox"] {
+  visibility: hidden;
+}
+
+.round input[type="checkbox"]:checked + label {
+  background-color: #66bb6a;
+  border-color: #66bb6a;
+}
+
+.round input[type="checkbox"]:checked + label:after {
+  opacity: 1;
+}
 .input-box__save-btn:hover {
-  background-color: #9eb7fd;
+  background-color: #1d3d53;
 }
 .todo-container {
   padding: 0;
@@ -89,6 +151,7 @@ select {
   display: flex;
   flex-direction: column;
   .todo-item {
+    position: absolute;
     border: 1px solid #D2C1B6;
     border-radius: 5px;
     position: relative;
@@ -97,10 +160,10 @@ select {
     justify-content: space-between;
     background-color: transparent;
     padding: 10px 12px;
-    min-width: 450px;
+    width: 450px;
     border-radius: 4px;
-    border-bottom-left-radius: 0;
     outline: none;
+    color: #D2C1B6;;
     gap: 4px;
     .todo-item__todo-box {
       display: flex;
@@ -124,6 +187,9 @@ select {
     }
   }
   .todo-item__tag {
+    position: relative;
+    top: -90px;
+    left: -20px;
     display: flex;
     align-items: center;
     gap: 4px;
@@ -131,15 +197,15 @@ select {
     background-color: #234C6A;
     padding: 4px 8px;
     width: fit-content;
-    color: white;
-    border-bottom-right-radius: 4px;
-    border-bottom-left-radius: 4px;
+    color: #D2C1B6;;
+    border-radius: 12px;
     font-size: 14px;
   }
 }
 .todo-form{
   .tags{
     display: flex;
+    border: none;
   }
   .input-item{
     display: flex;
@@ -173,4 +239,115 @@ select {
   100% {
     top: -50px;
   }
+}
+// Style for delete modal
+/* Modal background */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  justify-content: center;
+  align-items: center;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto; /* Center the modal vertically and horizontally */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+  max-width: 400px;
+  border-radius: 8px;
+  position: relative;
+  text-align: center;
+}
+
+/* Close Button */
+.close-button {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Modal Title */
+.modal-content h2 {
+  margin-top: 0;
+  color: #333;
+}
+
+/* Confirmation Message */
+.modal-content p {
+  margin-bottom: 20px;
+  color: #555;
+}
+
+/* Action Buttons */
+.modal-actions button {
+  padding: 10px 20px;
+  margin: 0 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.cancel-button {
+  background-color: #ccc;
+  color: #333;
+}
+
+.confirm-delete-button {
+  background-color: #f44336; /* Red for delete action */
+  color: white;
+}
+
+.cancel-button:hover {
+  background-color: #bbb;
+}
+
+.confirm-delete-button:hover {
+  background-color: #d32f2f;
+}
+
+// Checkbox styling
+/* Hide the default checkbox */
+.custom-checkbox input {
+  appearance: none;
+  position: absolute;
+}
+
+/* Style the custom square with the `::before` pseudo-element */
+.custom-checkbox label::before {
+  content: '';
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background-color: white;
+  border-radius: 100%; /* Optional: for rounded corners */
+}
+
+/* Style the square when the checkbox is checked */
+.custom-checkbox input:checked + label::before {
+  background-image: url("../../src/assets/circle-corrent.svg");
+  background-repeat: no-repeat;
+  background-size: 18px 18px;
 }

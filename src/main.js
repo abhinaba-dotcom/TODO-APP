@@ -47,57 +47,91 @@ document.addEventListener("DOMContentLoaded", (e) => {
       }
       localStorage.setItem("todos", JSON.stringify(storedTodos));
       fetchAllTodos(findFilteredTodos(filters.value));
-      setTimeout(() => {
-      }, 1000);
+      setTimeout(() => {}, 1000);
     }
   }
   // Code to edit a todo
   function editTodo(currentElement, todoId) {
     if (localStorage.getItem("todos")) {
       const storedTodos = JSON.parse(localStorage.getItem("todos"));
-      const todoTextPara =
-        currentElement.parentNode.previousElementSibling.lastElementChild;
-      todoTextPara.contentEditable = true;
-      todoTextPara.style.outline = "none";
-      todoTextPara.style.outline = "none";
-      todoTextPara.style.background = "gray"
-      todoTextPara.style.padding="2px 4px"
-      todoTextPara.focus();
-      currentElement.style.display = "none";
-      currentElement.previousElementSibling.style.display = "flex";
-      currentElement.previousElementSibling.addEventListener("click", (e) => {
-        let editedTodoText = todoTextPara.innerText;
-        currentElement.style.display = "flex";
-        currentElement.previousElementSibling.style.display = "none";
-        storedTodos.forEach((todo, index, array) => {
-          if (todo.id == todoId) {
-            const editedTodo = { ...todo, todoText: editedTodoText };
-            array[index] = editedTodo;
-          }
-        });
-        localStorage.setItem("todos", JSON.stringify(storedTodos));
-        showAlert("Todo edited successfully.", "success");
+      storedTodos.forEach((todo, index, array) => {
+        if (todo.id == todoId) {
+          if (todo.isChecked === true) {
+            showAlert("Can't edit a completed todo.", "warning");
+            return;
+          } else {
+            const todoTextPara =
+              currentElement.parentNode.previousElementSibling.lastElementChild;
+            todoTextPara.contentEditable = true;
+            todoTextPara.style.outline = "none";
+            todoTextPara.style.outline = "none";
+            todoTextPara.style.background = "gray";
+            todoTextPara.style.padding = "2px 4px";
+            todoTextPara.focus();
+            currentElement.style.display = "none";
+            currentElement.previousElementSibling.style.display = "flex";
+            currentElement.previousElementSibling.addEventListener(
+              "click",
+              (e) => {
+                let editedTodoText = todoTextPara.innerText;
+                currentElement.style.display = "flex";
+                currentElement.previousElementSibling.style.display = "none";
+                storedTodos.forEach((todo, index, array) => {
+                  if (todo.id == todoId) {
+                    const editedTodo = { ...todo, todoText: editedTodoText };
+                    array[index] = editedTodo;
+                  }
+                });
+                localStorage.setItem("todos", JSON.stringify(storedTodos));
+                showAlert("Todo edited successfully.", "success");
 
-        setTimeout(() => {
-          fetchAllTodos(findFilteredTodos(filters.value));
-        }, 1000);
+                setTimeout(() => {
+                  fetchAllTodos(findFilteredTodos(filters.value));
+                }, 1000);
+              }
+            );
+          }
+        }
       });
     }
   }
   // Code to delete a todo
   function deleteTodo(todoId) {
-    if (localStorage.getItem("todos")) {
-      const storedTodos = JSON.parse(localStorage.getItem("todos"));
-      const filteredTodosAfterDeletion = storedTodos.filter(
-        (item) => item.id != todoId
-      );
-      localStorage.setItem("todos", JSON.stringify(filteredTodosAfterDeletion));
-      showAlert("Todo deleted successfully.", "danger");
+    const modal = document.getElementById("deleteModal");
+    modal.style.display = "flex";
+    if (modal.style.display === "flex") {
+      document
+        .getElementById("confirm-delete-button")
+        .addEventListener("click", (e) => {
+          e.preventDefault();
+          if (localStorage.getItem("todos")) {
+            const storedTodos = JSON.parse(localStorage.getItem("todos"));
+            const filteredTodosAfterDeletion = storedTodos.filter(
+              (item) => item.id != todoId
+            );
+            localStorage.setItem(
+              "todos",
+              JSON.stringify(filteredTodosAfterDeletion)
+            );
+            showAlert("Todo deleted successfully.", "danger");
 
-      fetchAllTodos(findFilteredTodos(filters.value));
+            fetchAllTodos(findFilteredTodos(filters.value));
+          }
+          modal.style.display = "none";
+        });
+      document
+        .getElementById("cancel-button")
+        .addEventListener("click", (e) => {
+          e.preventDefault();
+          modal.style.display = "none";
+        });
+      document.getElementById("close-button").addEventListener("click", (e) => {
+        e.preventDefault();
+        modal.style.display = "none";
+      });
     }
   }
-  
+
   // Making the scope of that three function global which are inside the onclick buttons
   window.myGlobalEditTodo = editTodo;
   window.myGlobalDeleteTodo = deleteTodo;
@@ -127,11 +161,9 @@ document.addEventListener("DOMContentLoaded", (e) => {
     }
     return todosToShow;
   }
-
+  
   // Initial load of todos
   const filters = document.getElementById("filters");
-  console.log(filters);
-  console.log()
   fetchAllTodos(findFilteredTodos(filters.value));
 
   // Event listener to check the change in the filter select
@@ -150,19 +182,23 @@ document.addEventListener("DOMContentLoaded", (e) => {
         newTodoDiv.innerHTML = `<div class="todo-item-parent-container">
         <div id=${todo.id} class="todo-item">
             <div class="todo-item__todo-box">
-              <input class="check-button" onchange="myGlobalMarkTodo(this, ${
+            <div class="custom-checkbox">
+  <input class="check-button" onchange="myGlobalMarkTodo(this, ${
                 todo.id
               })"  type="checkbox" ${todo.isChecked ? "checked" : ""} />
+  <label for="myCheckbox"></label>
+</div>
+              
               <p style="text-decoration: ${
                 todo.isChecked ? "line-through" : "none"
               }" class="todo-text">${todo.todoText}</p>
             </div>
             <div class="todo-container__button-box">
-              <img class="saveBtn" width="25px" height="25px" src="./src/assets/save-mat.svg" alt="">
-              <img class="editBtn" onclick="myGlobalEditTodo(this,'${
+              <img title="Save" class="saveBtn" width="25px" height="25px" src="./src/assets/save-mat.svg" alt="">
+              <img title="Edit" class="editBtn" onclick="myGlobalEditTodo(this,'${
                 todo.id
               }')" width="25px" height="25px" src="./src/assets/edit-mat.svg" alt="">
-              <img class="deleteBtn"  onclick="myGlobalDeleteTodo('${
+              <img title="Delete" class="deleteBtn"  onclick="myGlobalDeleteTodo('${
                 todo.id
               }')" width="25px" height="25px" src="./src/assets/delete-mat.svg" alt="">
             </div>
