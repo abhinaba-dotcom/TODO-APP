@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
     alertDiv.innerText = msg;
     let capitalizeTypeText;
     if (type === "success") {
-      alertDiv.style.background = "green";
+      alertDiv.style.background = "#35ae4dff";
       capitalizeTypeText = type.charAt(0).toUpperCase() + type.slice(1);
       alertDiv.innerText = capitalizeTypeText + ": " + msg;
     } else if (type === "warning") {
@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
       capitalizeTypeText = type.charAt(0).toUpperCase() + type.slice(1);
       alertDiv.innerText = capitalizeTypeText + ": " + msg;
     } else if (type === "danger") {
-      alertDiv.style.background = "red";
+      alertDiv.style.background = "#c54033ff";
       alertDiv.innerText = msg;
     }
     alertDiv.classList.add("alert-box");
@@ -85,9 +85,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
                 localStorage.setItem("todos", JSON.stringify(storedTodos));
                 showAlert("Todo edited successfully.", "success");
 
-                setTimeout(() => {
-                  fetchAllTodos(findFilteredTodos(filters.value));
-                }, 1000);
+                fetchAllTodos(findFilteredTodos(filters.value));
               }
             );
           }
@@ -161,7 +159,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
     }
     return todosToShow;
   }
-  
+
   // Initial load of todos
   const filters = document.getElementById("filters");
   fetchAllTodos(findFilteredTodos(filters.value));
@@ -197,7 +195,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
               <img title="Save" class="saveBtn" width="25px" height="25px" src="./src/assets/save-mat.svg" alt="">
               <img title="Edit" class="editBtn" onclick="myGlobalEditTodo(this,'${
                 todo.id
-              }')" width="25px" height="25px" src="./src/assets/edit-mat.svg" alt="">
+              }')" width="25px" height="25px" src="./src/assets/edit-green.svg" alt="">
               <img title="Delete" class="deleteBtn"  onclick="myGlobalDeleteTodo('${
                 todo.id
               }')" width="25px" height="25px" src="./src/assets/delete-mat.svg" alt="">
